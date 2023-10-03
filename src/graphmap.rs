@@ -1,19 +1,21 @@
 //! `GraphMap<N, E, Ty>` is a graph datastructure where node values are mapping
 //! keys.
 
+use alloc::vec::Vec;
+use core::cmp::Ordering;
+use core::fmt;
+use core::hash::{self, Hash};
+use core::iter::FromIterator;
+use core::iter::{Cloned, DoubleEndedIterator};
+use core::marker::PhantomData;
+use core::mem;
+use core::ops::{Deref, Index, IndexMut};
+use core::slice::Iter;
+use hashbrown::hash_map::DefaultHashBuilder;
+use hashbrown::HashSet;
 use indexmap::map::Keys;
 use indexmap::map::{Iter as IndexMapIter, IterMut as IndexMapIterMut};
 use indexmap::IndexMap;
-use std::cmp::Ordering;
-use std::collections::HashSet;
-use std::fmt;
-use std::hash::{self, Hash};
-use std::iter::FromIterator;
-use std::iter::{Cloned, DoubleEndedIterator};
-use std::marker::PhantomData;
-use std::mem;
-use std::ops::{Deref, Index, IndexMut};
-use std::slice::Iter;
 
 use crate::{Directed, Direction, EdgeType, Incoming, Outgoing, Undirected};
 
@@ -64,8 +66,8 @@ pub type DiGraphMap<N, E> = GraphMap<N, E, Directed>;
 /// Depends on crate feature `graphmap` (default).
 #[derive(Clone)]
 pub struct GraphMap<N, E, Ty> {
-    nodes: IndexMap<N, Vec<(N, CompactDirection)>>,
-    edges: IndexMap<(N, N), E>,
+    nodes: IndexMap<N, Vec<(N, CompactDirection)>, DefaultHashBuilder>,
+    edges: IndexMap<(N, N), E, DefaultHashBuilder>,
     ty: PhantomData<Ty>,
 }
 
@@ -179,8 +181,8 @@ where
     /// Create a new `GraphMap` with estimated capacity.
     pub fn with_capacity(nodes: usize, edges: usize) -> Self {
         GraphMap {
-            nodes: IndexMap::with_capacity(nodes),
-            edges: IndexMap::with_capacity(edges),
+            nodes: IndexMap::with_capacity_and_hasher(nodes, DefaultHashBuilder::default()),
+            edges: IndexMap::with_capacity_and_hasher(edges, DefaultHashBuilder::default()),
             ty: PhantomData,
         }
     }
@@ -708,7 +710,7 @@ where
     Ty: EdgeType,
 {
     from: N,
-    edges: &'a IndexMap<(N, N), E>,
+    edges: &'a IndexMap<(N, N), E, DefaultHashBuilder>,
     iter: Neighbors<'a, N, Ty>,
 }
 
@@ -741,7 +743,7 @@ where
 {
     from: N,
     dir: Direction,
-    edges: &'a IndexMap<(N, N), E>,
+    edges: &'a IndexMap<(N, N), E, DefaultHashBuilder>,
     iter: NeighborsDirected<'a, N, Ty>,
 }
 

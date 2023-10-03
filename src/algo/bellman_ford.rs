@@ -1,6 +1,8 @@
 //! Bellman-Ford algorithms.
 
 use crate::prelude::*;
+use alloc::vec;
+use alloc::vec::Vec;
 
 use crate::visit::{IntoEdges, IntoNodeIdentifiers, NodeCount, NodeIndexable, VisitMap, Visitable};
 

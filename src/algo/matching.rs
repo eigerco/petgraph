@@ -1,5 +1,7 @@
-use std::collections::VecDeque;
-use std::hash::Hash;
+use alloc::collections::VecDeque;
+use alloc::vec;
+use alloc::vec::Vec;
+use core::hash::Hash;
 
 use crate::visit::{
     EdgeRef, GraphBase, IntoEdges, IntoNeighbors, IntoNodeIdentifiers, NodeCount, NodeIndexable,
@@ -372,7 +374,7 @@ where
     // The dummy identifier needs an unused index
     assert_ne!(
         graph.node_bound(),
-        std::usize::MAX,
+        core::usize::MAX,
         "The input graph capacity should be strictly less than std::usize::MAX."
     );
 
@@ -387,7 +389,7 @@ where
     debug_assert_eq!(mate.len(), len);
 
     let mut label: Vec<Label<G>> = vec![Label::None; len];
-    let mut first_inner = vec![std::usize::MAX; len];
+    let mut first_inner = vec![core::usize::MAX; len];
     let visited = &mut graph.visit_map();
 
     for start in 0..graph.node_bound() {
@@ -526,7 +528,7 @@ fn find_join<G, F>(
     let join = loop {
         // Swap the sides. Do not swap if the right side is already finished.
         if right != graph.dummy_idx() {
-            std::mem::swap(&mut left, &mut right);
+            core::mem::swap(&mut left, &mut right);
         }
 
         // Set left to the next inner vertex in P(source) or P(target).

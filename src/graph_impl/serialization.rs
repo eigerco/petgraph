@@ -1,6 +1,7 @@
 use serde::de::Error;
 
-use std::marker::PhantomData;
+use alloc::vec::Vec;
+use core::marker::PhantomData;
 
 use crate::prelude::*;
 

@@ -14,6 +14,8 @@ use crate::visit::{
     GraphBase, IntoNeighbors, IntoNeighborsDirected, NodeCompactIndexable, NodeCount,
 };
 use crate::Direction;
+use alloc::vec;
+use alloc::vec::Vec;
 use fixedbitset::FixedBitSet;
 
 /// Creates a representation of the same graph respecting topological order for use in `tred::dag_transitive_reduction_closure`.

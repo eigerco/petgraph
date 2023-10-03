@@ -104,6 +104,8 @@
 //!   Defaults on. Enables [`MatrixGraph`](./matrix_graph/struct.MatrixGraph.html).
 //!
 #![doc(html_root_url = "https://docs.rs/petgraph/0.4/")]
+#![cfg_attr(not(feature = "std"), no_std)]
+extern crate alloc;
 
 extern crate fixedbitset;
 #[cfg(feature = "graphmap")]

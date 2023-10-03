@@ -1,10 +1,13 @@
 //! `MatrixGraph<N, E, Ty, NullN, NullE, Ix>` is a graph datastructure backed by an adjacency matrix.
 
-use std::marker::PhantomData;
-use std::ops::{Index, IndexMut};
+use core::marker::PhantomData;
+use core::ops::{Index, IndexMut};
 
-use std::cmp;
-use std::mem;
+use alloc::vec;
+use alloc::vec::Vec;
+use core::cmp;
+use core::mem;
+use hashbrown::hash_map::DefaultHashBuilder;
 
 use indexmap::IndexSet;
 
@@ -904,7 +907,7 @@ fn ensure_len<T: Default>(v: &mut Vec<T>, size: usize) {
 struct IdStorage<T> {
     elements: Vec<Option<T>>,
     upper_bound: usize,
-    removed_ids: IndexSet<usize>,
+    removed_ids: IndexSet<usize, DefaultHashBuilder>,
 }
 
 impl<T> IdStorage<T> {
@@ -912,7 +915,7 @@ impl<T> IdStorage<T> {
         IdStorage {
             elements: Vec::with_capacity(capacity),
             upper_bound: 0,
-            removed_ids: IndexSet::new(),
+            removed_ids: IndexSet::with_hasher(DefaultHashBuilder::default()),
         }
     }
 
@@ -979,7 +982,7 @@ impl<T> IndexMut<usize> for IdStorage<T> {
 #[derive(Debug, Clone)]
 struct IdIterator<'a> {
     upper_bound: usize,
-    removed_ids: &'a IndexSet<usize>,
+    removed_ids: &'a IndexSet<usize, DefaultHashBuilder>,
     current: Option<usize>,
 }
 
