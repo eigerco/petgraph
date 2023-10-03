@@ -1,7 +1,8 @@
 use serde::de::Error;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use std::marker::PhantomData;
+use alloc::vec::Vec;
+use core::marker::PhantomData;
 
 use crate::prelude::*;
 

@@ -1,8 +1,10 @@
-use std::{
+use alloc::vec;
+use core::{
     hash::Hash,
     iter::{from_fn, FromIterator},
 };
 
+use hashbrown::hash_map::DefaultHashBuilder;
 use indexmap::IndexSet;
 
 use crate::{
@@ -58,7 +60,7 @@ where
     let min_length = min_intermediate_nodes + 1;
 
     // list of visited nodes
-    let mut visited: IndexSet<G::NodeId> = IndexSet::from_iter(Some(from));
+    let mut visited: IndexSet<G::NodeId, DefaultHashBuilder> = IndexSet::from_iter(Some(from));
     // list of childs of currently exploring path nodes,
     // last elem is list of childs of last visited node
     let mut stack = vec![graph.neighbors_directed(from, Outgoing)];
@@ -103,7 +105,8 @@ where
 
 #[cfg(test)]
 mod test {
-    use std::{collections::HashSet, iter::FromIterator};
+    use core::iter::FromIterator;
+    use hashbrown::HashSet;
 
     use itertools::assert_equal;
 

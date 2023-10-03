@@ -12,9 +12,11 @@
 //! strictly dominates **B** and there does not exist any node **C** where **A**
 //! dominates **C** and **C** dominates **B**.
 
-use std::cmp::Ordering;
-use std::collections::{hash_map::Iter, HashMap, HashSet};
-use std::hash::Hash;
+use alloc::vec;
+use alloc::vec::Vec;
+use core::cmp::Ordering;
+use core::hash::Hash;
+use hashbrown::{hash_map::Iter, HashMap, HashSet};
 
 use crate::visit::{DfsPostOrder, GraphBase, IntoNeighbors, Visitable, Walker};
 
@@ -147,7 +149,7 @@ where
 
 /// The undefined dominator sentinel, for when we have not yet discovered a
 /// node's dominator.
-const UNDEFINED: usize = ::std::usize::MAX;
+const UNDEFINED: usize = core::usize::MAX;
 
 /// This is an implementation of the engineered ["Simple, Fast Dominance
 /// Algorithm"][0] discovered by Cooper et al.

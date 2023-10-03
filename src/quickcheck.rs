@@ -5,6 +5,8 @@ use crate::graph::{node_index, IndexType};
 #[cfg(feature = "stable_graph")]
 use crate::stable_graph::StableGraph;
 use crate::{EdgeType, Graph};
+use alloc::boxed::Box;
+use alloc::vec::Vec;
 
 #[cfg(feature = "graphmap")]
 use crate::graphmap::{GraphMap, NodeTrait};
