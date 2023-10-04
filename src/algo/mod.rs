@@ -369,8 +369,8 @@ impl<N> TarjanScc<N> {
     /// Creates a new `TarjanScc`
     pub fn new() -> Self {
         TarjanScc {
-            index: 1,                         // Invariant: index < componentcount at all times.
-            componentcount: core::usize::MAX, // Will hold if componentcount is initialized to number of nodes - 1 or higher.
+            index: 1,                   // Invariant: index < componentcount at all times.
+            componentcount: usize::MAX, // Will hold if componentcount is initialized to number of nodes - 1 or higher.
             nodes: Vec::new(),
             stack: Vec::new(),
         }
@@ -489,7 +489,7 @@ impl<N> TarjanScc<N> {
             rindex > self.componentcount,
             "Given node has been visited but not yet assigned to a component."
         );
-        core::usize::MAX - rindex
+        usize::MAX - rindex
     }
 }
 
@@ -860,11 +860,11 @@ macro_rules! impl_bounded_measure_integer(
         $(
             impl BoundedMeasure for $t {
                 fn min() -> Self {
-                    core::$t::MIN
+                    $t::MIN
                 }
 
                 fn max() -> Self {
-                    core::$t::MAX
+                    $t::MAX
                 }
 
                 fn overflowing_add(self, rhs: Self) -> (Self, bool) {
@@ -882,19 +882,19 @@ macro_rules! impl_bounded_measure_float(
         $(
             impl BoundedMeasure for $t {
                 fn min() -> Self {
-                    core::$t::MIN
+                    $t::MIN
                 }
 
                 fn max() -> Self {
-                    core::$t::MAX
+                    $t::MAX
                 }
 
                 fn overflowing_add(self, rhs: Self) -> (Self, bool) {
                     // for an overflow: a + b > max: both values need to be positive and a > max - b must be satisfied
-                    let overflow = self > Self::default() && rhs > Self::default() && self > core::$t::MAX - rhs;
+                    let overflow = self > Self::default() && rhs > Self::default() && self > $t::MAX - rhs;
 
                     // for an underflow: a + b < min: overflow can not happen and both values must be negative and a < min - b must be satisfied
-                    let underflow = !overflow && self < Self::default() && rhs < Self::default() && self < core::$t::MIN - rhs;
+                    let underflow = !overflow && self < Self::default() && rhs < Self::default() && self < $t::MIN - rhs;
 
                     (self + rhs, overflow || underflow)
                 }

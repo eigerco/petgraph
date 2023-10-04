@@ -55,7 +55,7 @@ use crate::visit::{
 /// //    |      v         v
 /// //     --->  d <-------
 ///
-/// let inf = std::i32::MAX;
+/// let inf = i32::MAX;
 /// let expected_res: HashMap<(NodeIndex, NodeIndex), i32> = [
 ///    ((a, a), 0), ((a, b), 1), ((a, c), 3), ((a, d), 3),
 ///    ((b, a), inf), ((b, b), 0), ((b, c), 2), ((b, d), 2),

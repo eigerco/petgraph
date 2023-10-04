@@ -30,7 +30,7 @@ fn floyd_warshall_uniform_weight() {
     // |       v       |       v
     // d <---- c       h <---- g
 
-    let inf = std::i32::MAX;
+    let inf = i32::MAX;
     let expected_res: HashMap<(NodeIndex, NodeIndex), i32> = [
         ((a, a), 0),
         ((a, b), 1),
@@ -123,7 +123,7 @@ fn floyd_warshall_weighted() {
 
     graph.extend_with_edges(&[(a, b), (a, c), (a, d), (b, c), (b, d), (c, d)]);
 
-    let inf = std::i32::MAX;
+    let inf = i32::MAX;
     let expected_res: HashMap<(NodeIndex, NodeIndex), i32> = [
         ((a, a), 0),
         ((a, b), 1),
@@ -191,7 +191,7 @@ fn floyd_warshall_weighted_undirected() {
 
     graph.extend_with_edges(&[(a, b), (a, c), (a, d), (b, d), (c, b), (c, d)]);
 
-    let inf = std::i32::MAX;
+    let inf = i32::MAX;
     let expected_res: HashMap<(NodeIndex, NodeIndex), i32> = [
         ((a, a), 0),
         ((a, b), 1),
@@ -258,7 +258,7 @@ fn floyd_warshall_negative_cycle() {
 
     graph.extend_with_edges(&[(a, b), (b, c), (c, a)]);
 
-    let inf = std::i32::MAX;
+    let inf = i32::MAX;
 
     let weight_map: HashMap<(NodeIndex, NodeIndex), i32> = [
         ((a, a), 0),
