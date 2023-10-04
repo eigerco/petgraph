@@ -334,7 +334,7 @@ impl<G: GraphBase> PartialEq for Label<G> {
 /// *O(|V|³)*. An algorithm with a better time complexity might be used in the
 /// future.
 ///
-/// **Panics** if `g.node_bound()` is `std::usize::MAX`.
+/// **Panics** if `g.node_bound()` is `usize::MAX`.
 ///
 /// # Examples
 ///
@@ -374,8 +374,8 @@ where
     // The dummy identifier needs an unused index
     assert_ne!(
         graph.node_bound(),
-        core::usize::MAX,
-        "The input graph capacity should be strictly less than std::usize::MAX."
+        usize::MAX,
+        "The input graph capacity should be strictly less than usize::MAX."
     );
 
     // Greedy algorithm should create a fairly good initial matching. The hope
@@ -389,7 +389,7 @@ where
     debug_assert_eq!(mate.len(), len);
 
     let mut label: Vec<Label<G>> = vec![Label::None; len];
-    let mut first_inner = vec![core::usize::MAX; len];
+    let mut first_inner = vec![usize::MAX; len];
     let visited = &mut graph.visit_map();
 
     for start in 0..graph.node_bound() {

@@ -50,7 +50,7 @@ unsafe impl IndexType for usize {
     }
     #[inline(always)]
     fn max() -> Self {
-        core::usize::MAX
+        usize::MAX
     }
 }
 
@@ -65,7 +65,7 @@ unsafe impl IndexType for u32 {
     }
     #[inline(always)]
     fn max() -> Self {
-        core::u32::MAX
+        u32::MAX
     }
 }
 
@@ -80,7 +80,7 @@ unsafe impl IndexType for u16 {
     }
     #[inline(always)]
     fn max() -> Self {
-        core::u16::MAX
+        u16::MAX
     }
 }
 
@@ -95,7 +95,7 @@ unsafe impl IndexType for u8 {
     }
     #[inline(always)]
     fn max() -> Self {
-        core::u8::MAX
+        u8::MAX
     }
 }
 
